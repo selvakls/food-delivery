@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ScheduleDto } from 'src/dtos/schedule.dto';
 import { Schedule } from 'src/entities/schedule.entity';
 import { DateTransformer } from 'src/pipes/common-pipes';
+import moment from 'moment';
 
 @Injectable()
 export class ScheduleDtoToDOTransformer
@@ -30,7 +31,7 @@ export class ScheduleDoToDtoTransformer
 {
   transform(schedule: Schedule): ScheduleDto {
     const scheduleDto = new ScheduleDto();
-    scheduleDto.scheduleDate = `${schedule.scheduleDate.getMonth()}/${schedule.scheduleDate.getDate()}/${schedule.scheduleDate.getFullYear()}`;
+    scheduleDto.scheduleDate = moment(schedule.scheduleDate).format('MM/DD/YYYY');
     scheduleDto.id = schedule.id;
     scheduleDto.createdAt = schedule.createdAt;
     scheduleDto.updatedAt = schedule.updatedAt;

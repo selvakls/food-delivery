@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from 'moment';
 
 export type ScheduleDto = {
     id: number;
@@ -9,7 +10,8 @@ export type ScheduleDto = {
 }
 
 export const fetchSchedules = async(date: Date) => {
-    return fetch(`http://localhost:3000/schedules?date=${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`,
+    const query = moment(date).format('MM-DD-YYYY');
+    return fetch(`http://localhost:3000/schedules?date=${query}`,
         {
             method: "GET",
             mode: "cors",

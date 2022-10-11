@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { fetchSchedules, getSchedules, ScheduleDto } from '../../../services/schedule.service';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import {AxiosResponse} from "axios";
+import { Typography } from '@mui/material';
 
 interface TableProps {
   
@@ -14,7 +15,7 @@ const columns: GridColDef[] = [
 ];
 
 const DataTable: FC<TableProps> = () => {
-  const [schedule, setSchedule] = useState([{id: 1}]);
+  const [schedule, setSchedule] = useState([] as Array<ScheduleDto>);
 
   useEffect(() => {
     getSchedules(new Date()).then((response: AxiosResponse<Array<ScheduleDto>>) => {
@@ -22,7 +23,10 @@ const DataTable: FC<TableProps> = () => {
     });
   }, []);
   return (
-  <div style={{ height: 400, width: '100%' }}>
+  <div style={{ height: 800, width: '100%' }}>
+    <Typography variant="h3" component="h4">
+      Today's Schedule
+    </Typography>;
       <DataGrid
         rows={schedule}
         columns={columns}
